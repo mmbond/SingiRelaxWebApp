@@ -1,0 +1,11 @@
+mat-form-field {
+    width: 100%;
+}
+mat-card-subtitle {
+    margin-bottom: 3vh;
+    font-size: 0.75em;
+}
+.example-header-image {
+    background-image: url('https://cdn2.iconfinder.com/data/icons/rcons-user/32/male-circle-512.png');
+    background-size: cover;
+}

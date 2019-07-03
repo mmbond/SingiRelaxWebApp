@@ -1,0 +1,49 @@
+<mat-table [dataSource]="finishedEventSource" matSort>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Догађај</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="dateFrom">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Датум почетка</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.dateFrom | date: 'dd.MM.yyyy' }}
+      <br />{{ element.dateFrom | date: 'hh:mma' }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="dateTo">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Датум завршетка</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.dateTo | date: 'dd.MM.yyyy' }}
+      <br />{{ element.dateTo | date: 'hh:mma' }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="location">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Локација</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.location }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="eventType">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Тип</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.eventType }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="attendance">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Посећеност</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.attendance }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="rating">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Оцена</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.rating }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef>Акције</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button *ngIf="applied(row.id)" mat-raised-button color="accent" (click)="onRate(row.id)">Оцени!</button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let rows; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,20,50,100]"></mat-paginator>

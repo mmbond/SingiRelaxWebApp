@@ -1,0 +1,12 @@
+mat-tab-group {
+    background-color: rgba(84, 10, 24, 0.6);
+    color: beige;
+    border-radius: 15px;
+}
+mat-tab {
+    padding-left: 10px;
+}
+
+mat-form-field {
+    background-color: beige;
+}

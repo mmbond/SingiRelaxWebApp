@@ -1,0 +1,13 @@
+<mat-card class="example-card" *ngFor="let event of this.interestedEvents">
+  <mat-card-header>
+    <mat-card-title> Занимљив догађај: {{ event.name }} </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    Догађај почиње: {{ event.dateFrom | date }}<br />
+    Локација: {{ event.location}}
+    <mat-card-subtitle>
+      Опис: {{ event.description}}
+    </mat-card-subtitle>
+    <button mat-raised-button color="accent" (click)="this.joinEvent(event.id)">Пријави се!</button>
+  </mat-card-content>
+</mat-card>

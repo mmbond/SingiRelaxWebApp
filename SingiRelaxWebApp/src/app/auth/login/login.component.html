@@ -1,0 +1,20 @@
+<section>
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <mat-form-field>
+      <input type="email" matInput placeholder="Емајл" ngModel name="email" email autocomplete="email" required
+        #emailInput="ngModel">
+      <mat-error *ngIf="emailInput.hasError('required')">Поље не сме бити празно.</mat-error>
+      <mat-error *ngIf="!emailInput.hasError('required')">Користите одговарајући формат.</mat-error>
+    </mat-form-field>
+    <mat-form-field hintLabel="Упишите више од 8 карактера лозинке.">
+      <input type="password" matInput placeholder="Лозинка" [type]="hide ? 'password' : 'text'" ngModel name="password"
+        [(ngModel)]=password autocomplete="password" required minlength="8" #passInput="ngModel">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-hint align="end">{{ passInput.value?.length }} / 8</mat-hint>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">
+      Улогујте се
+    </button>
+    <mat-label *ngIf="errorExists" color="warn">{{ errorText }}</mat-label>
+  </form>
+</section>

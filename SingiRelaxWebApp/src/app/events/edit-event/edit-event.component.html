@@ -1,0 +1,100 @@
+<mat-dialog-content>
+  <section fxLayout="column" fxLayoutAlign="center center">
+    <mat-vertical-stepper [linear]=true #stepper>
+      <mat-step [stepControl]="eventFormGroup">
+        <form [formGroup]="eventFormGroup" (ngSubmit)="form6()" #formsix="ngForm">
+          <ng-template matStepLabel>Унесите име догађаја</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Име догађаја" formControlName="eventNameFF" [(ngModel)]=event required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Даље</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <form [formGroup]="firstFormGroup" (ngSubmit)="form1()" #formone="ngForm">
+          <ng-template matStepLabel>Локација догађаја</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Локација" formControlName="eventLocationFF" [(ngModel)]=loc required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Назад</button>
+            <button mat-button matStepperNext>Даље</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup" (ngSubmit)="form2()" #formtwo="ngForm" fxLayoutAlign="center start"
+          fxLayout="column">
+          <ng-template matStepLabel>Почетак догађаја</ng-template>
+          <mat-form-field>
+            <input matInput [matDatepicker]="dateFromPicker" placeholder="Почетак догађаја" formControlName="dateFromFF"
+              [(ngModel)]=dateF required disabled>
+            <mat-datepicker-toggle matSuffix [for]="dateFromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateFromPicker disabled="false"></mat-datepicker>
+          </mat-form-field>
+          <ng-template matStepLabel>Завршетак догађаја</ng-template>
+          <mat-form-field>
+            <input matInput [matDatepicker]="dateToPicker" placeholder="Завршетак догађаја" formControlName="dateToFF"
+              [(ngModel)]=dateT required disabled>
+            <mat-datepicker-toggle matSuffix [for]="dateToPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateToPicker disabled="false"></mat-datepicker>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Назад</button>
+            <button mat-button matStepperNext>Даље</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="thirdFormGroup">
+        <form [formGroup]="thirdFormGroup" (ngSubmit)="form3()" #formthree="ngForm">
+          <ng-template matStepLabel>Тип</ng-template>
+          <mat-form-field>
+            <mat-select matInput placeholder="Тип" formControlName="typeFF" [(ngModel)]=eventType required>
+              <mat-option value="KLUB">Klub</mat-option>
+              <mat-option value="KONCERT">Koncert</mat-option>
+              <mat-option value="PRIRODA">Priroda</mat-option>
+              <mat-option value="SPORT">Sport</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Назад</button>
+            <button mat-button matStepperNext>Даље</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="fourthFormGroup">
+        <form [formGroup]="fourthFormGroup" (ngSubmit)="form4()" #formfour="ngForm" fxLayoutAlign="center start"
+          fxLayout="column">
+          <ng-template matStepLabel>Унесите опис догађаја</ng-template>
+          <mat-form-field>
+            <textarea matInput placeholder formControlName="descriptionFF" [(ngModel)]=desc required cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"></textarea>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Назад</button>
+            <button mat-button matStepperNext>Даље</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <form [formGroup]="fifthFormGroup" (ngSubmit)="form5()" #formone="ngForm">
+          <ng-template matStepLabel>Посећеност догађаја</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Посећеност" formControlName="attendanceFF" [(ngModel)]=attend required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Назад</button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-vertical-stepper>
+  </section>
+
+  <mat-card-actions fxLayoutAlign="center" fxLayoutGap="10px">
+    <button type="submit" mat-stroked-button color="primary" (click)="onClick()">Одустани</button>
+    <button type="submit" mat-raised-button color="primary" (click)="final()">ОК</button>
+  </mat-card-actions>
+</mat-dialog-content>

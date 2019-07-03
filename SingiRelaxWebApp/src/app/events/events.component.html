@@ -1,0 +1,91 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title fxLayoutAlign="center center">
+        <button mat-raised-button color="primary">Пронађи догађај</button>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <section fxLayout="row" fxLayoutAlign="space-evenly center">
+      <form [formGroup]="firstFormGroup">
+        <mat-form-field>
+          <input matInput placeholder="Име догађаја" formControlName="firstCtrl"
+            (keyup)="doFilter($event.target.value, 'name')">
+        </mat-form-field>
+      </form>
+      <form [formGroup]="secondFormGroup">
+        <mat-form-field>
+          <input matInput placeholder="Локација" formControlName="secondCtrl"
+            (keyup)="doFilter($event.target.value, 'location')">
+        </mat-form-field>
+      </form>
+      <form [formGroup]="thirdFormGroup">
+        <mat-form-field>
+          <input matInput placeholder="Посећеност догађаја" formControlName="thirdCtrl"
+            (keyup)="doFilter($event.target.value, 'attendance')">
+        </mat-form-field>
+      </form>
+      <form [formGroup]="fourthFormGroup">
+        <mat-form-field>
+          <input matInput placeholder="Оцена догађаја" formControlName="fourthCtrl"
+            (keyup)="doFilter($event.target.value, 'rating')">
+        </mat-form-field>
+      </form>
+      <form [formGroup]="fifthFormGroup">
+        <mat-form-field>
+          <input matInput placeholder="Тип" formControlName="fifthCtrl" (keyup)="doFilter($event.target.value, 'type')">
+        </mat-form-field>
+      </form>
+    </section>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-table [dataSource]="eventSource" matSort>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Догађај</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="dateFrom">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Датум почетка</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.dateFrom | date: 'dd.MM.yyyy' }}
+      <br />{{ element.dateFrom | date: 'hh:mma' }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="dateTo">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Датум завршетка</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.dateTo | date: 'dd.MM.yyyy' }}
+      <br />{{ element.dateTo | date: 'hh:mma' }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="location">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Локација</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.location }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="eventType">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Тип</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.eventType }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="attendance">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Посећеност</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.attendance }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="rating">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Оцена</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.rating }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef>Акције</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-raised-button color="accent" (click)="joinEvent(row.id)">Пријави се!</button>
+      <button *ngIf="this.userService.getActiveUser().userType == 'ADMIN'" mat-raised-button color="warn"
+        (click)="editEvent(row.id)">Измени</button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let rows; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,20,50,100]"></mat-paginator>

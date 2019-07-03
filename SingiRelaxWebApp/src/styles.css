@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import '~@angular/material/prebuilt-themes/indigo-pink.css'; */
+body,h1,h2,h3,h4,h5,h6 {
+    font-family: "Raleway", Arial, Helvetica, sans-serif
+}
+.myLink {
+    display: none
+}

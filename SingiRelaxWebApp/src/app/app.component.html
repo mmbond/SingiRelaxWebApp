@@ -1,0 +1,74 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidenav opened="true">
+        <mat-nav-list>
+            <a mat-list-item routerLink="/" (click)="sidenav.close()">
+                <mat-icon>home</mat-icon>
+                SINGIRELAX
+            </a>
+            <a *ngIf="!loggedIn" mat-list-item routerLink="/signup" (click)="sidenav.close()">
+                <mat-icon>input</mat-icon>
+                Региструјте се
+            </a>
+            <a *ngIf="!loggedIn" mat-list-item routerLink="/login" (click)="sidenav.close()">
+                <mat-icon>vpn_key</mat-icon>
+                Улогујте се
+            </a>
+            <a *ngIf="loggedIn" mat-list-item routerLink="/notifications" matBadge="{{this.interestedEvents()}}"
+                matBadgeOverlap="false" matBadgePosition="before" matBadgeColor="accent"
+                [matBadgeHidden]=hiddenInterested (click)="this.onInterestedBadge();sidenav.close()">
+                <mat-icon>notifications</mat-icon>
+                Акције
+            </a>
+            <a *ngIf="loggedIn" mat-list-item routerLink="/events" (click)="sidenav.close()">
+                <mat-icon>event</mat-icon>
+                Догађаји
+            </a>
+            <a *ngIf="loggedIn && this.userService.getActiveUser().typeOfUser == 'ADMIN'" mat-list-item
+                routerLink="/new-event" (click)="sidenav.close()">
+                <mat-icon>event_note</mat-icon>
+                Нови догађаји
+            </a>
+            <a *ngIf="loggedIn" mat-list-item routerLink="/profile" (click)="sidenav.close()">
+                <mat-icon>favorite</mat-icon>
+                Профил
+            </a>
+            <a *ngIf="loggedIn" mat-list-item routerLink="/logout" (click)="signOut(); sidenav.close()">
+                <mat-icon>vpn_key</mat-icon>
+                Одјави се
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <div fxHide.gt-xs>
+                <button (click)="sidenav.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </div>
+            <a routerLink="/">
+                SINGIRELAX
+            </a>
+            <div fxFlex fxLayoutAlign="end" fxLayoutGap="10px" fxHide.xs>
+                <a *ngIf="!loggedIn" routerLink="/signup">Региструјте се</a>
+                <a *ngIf="!loggedIn" routerLink="/login">Улогујте се</a>
+                <a *ngIf="loggedIn" routerLink="/notifications" matBadge="{{this.interestedEvents(0)}}"
+                    matBadgeOverlap="false" matBadgePosition="before" matBadgeColor="accent"
+                    [matBadgeHidden]=hiddenInterested (click)="this.onInterestedBadge()">Акције</a>
+                <a *ngIf="loggedIn" routerLink="/events">Догађаји</a>
+                <a *ngIf="loggedIn && this.userService.getActiveUser().userType == 'ADMIN'" mat-list-item
+                    routerLink="/new-event">Нови догађаји</a>
+                <div *ngIf="loggedIn" [matMenuTriggerFor]="menu">
+                    <a href="javascript:;"
+                        fxLayoutAlign="center center">{{ this.userService.getActiveUser().firstName }}
+                        <mat-icon>expand_more</mat-icon>
+                    </a>
+                </div>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item routerLink="/profile">Профил</button>
+                    <button mat-menu-item routerLink="/logout" (click)="signOut()">Одјавите се</button>
+                </mat-menu>
+            </div>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

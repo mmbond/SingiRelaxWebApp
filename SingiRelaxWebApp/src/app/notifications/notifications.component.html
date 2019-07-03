@@ -1,0 +1,23 @@
+<mat-tab-group animationDuration="0ms" mat-align-tabs="center">
+  <mat-tab label="Applied">
+    <ng-template matTabLabel>
+      <span matBadge="{{this.appliedEvents()}}" matBadgeOverlap="false" [matBadgeHidden]=hiddenApplied
+        (click)="onAppliedBadge()">Пријављени догађаји</span>
+    </ng-template>
+    <app-applied></app-applied>
+  </mat-tab>
+  <mat-tab label="Interested">
+    <ng-template matTabLabel>
+      <span matBadge="{{this.interestedEvents()}}" matBadgeOverlap="false" [matBadgeHidden]=hiddenInterested
+        (click)="onInterestedBadge()">Занимљиви догађаји</span>
+    </ng-template>
+    <app-interested></app-interested>
+  </mat-tab>
+  <mat-tab label="Finished">
+    <ng-template matTabLabel>
+      <span matBadge="{{this.finishedEvents()}}" matBadgeOverlap="false" [matBadgeHidden]=hiddenFinished
+        (click)="onFinishedBadge()">Завршени догађаји</span>
+    </ng-template>
+    <app-finished></app-finished>
+  </mat-tab>
+</mat-tab-group>

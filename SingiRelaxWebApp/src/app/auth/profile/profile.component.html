@@ -1,0 +1,115 @@
+<section fxLayoutAlign="center center" fxLayout="column">
+  <mat-card class="example-card">
+    <mat-card-header class="profile" fxLayoutAlign="center center">
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{this.userService.getActiveUser().firstName}} {{this.userService.getActiveUser().lastName}}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-actions fxLayoutAlign="center center">
+      <button mat-button *ngIf="!isEditing" mat-raised-button color="primary" (click)="isEditing=true">Измени
+        профил</button>
+    </mat-card-actions>
+    <mat-divider></mat-divider>
+    <mat-card-header fxLayout="row" fxLayoutGap="10px">
+      <div>
+        <mat-icon>email</mat-icon>
+      </div>
+      <div>
+        <mat-card-title>{{this.userService.getActiveUser().email}}</mat-card-title>
+        <mat-card-subtitle>Мејл</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+    <mat-card-header fxLayout="row" fxLayoutGap="10px">
+      <div>
+        <mat-icon>phone</mat-icon>
+      </div>
+      <div>
+        <mat-card-title>{{this.userService.getActiveUser().phone}}</mat-card-title>
+        <mat-card-subtitle>Телефон</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+    <mat-card-header fxLayout="row" fxLayoutGap="10px">
+      <div>
+        <mat-icon>home</mat-icon>
+      </div>
+      <div>
+        <mat-card-title>{{this.userService.getActiveUser().address}}</mat-card-title>
+        <mat-card-subtitle>Адреса</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+    <mat-card-header fxLayout="row" fxLayoutGap="10px">
+      <div>
+        <mat-icon>favorite_border</mat-icon>
+      </div>
+      <div>
+        <mat-card-title>{{this.userService.getActiveUser().interests}}</mat-card-title>
+        <mat-card-subtitle>Интересовања</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+
+    <section *ngIf="isEditing" class="profiledataedit">
+      <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Име</mat-label>
+          <input type="text" matInput placeholder ngModel name="firstName" [(ngModel)]=firstName
+            #firstNameInput="ngModel">
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-error *ngIf="firstNameInput.hasError('required')">Упишите своје име.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Презиме</mat-label>
+          <input type="text" matInput placeholder ngModel name="lastName" [(ngModel)]=lastName #lastNameInput="ngModel">
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-error *ngIf="lastNameInput.hasError('required')">Упишите своје презиме.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Емајл</mat-label>
+          <input type="email" matInput placeholder ngModel name="email" [(ngModel)]=email email #emailInput="ngModel">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="emailInput.hasError('required')">Поље не сме бити празно.</mat-error>
+          <mat-error *ngIf="!emailInput.hasError('required')">Користите одговарајући формат.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Лозинка</mat-label>
+          <input type="password" matInput placeholder [type]="hide ? 'password' : 'text'" ngModel name="password"
+            [(ngModel)]=password minlength="8" #passInput="ngModel">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <mat-hint align="end">{{ passInput.value?.length }} /8 </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Мобилни Телефон</mat-label>
+          <input type="tel" matInput placeholder ngModel name="phone" [(ngModel)]=phone #phoneInput="ngModel"
+            minlength="10">
+          <mat-icon matSuffix>phone</mat-icon>
+          <mat-error *ngIf="!phoneInput.hasError('required')">Број је кратак.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Адреса</mat-label>
+          <input type="text" matInput placeholder ngModel name="address" [(ngModel)]=address #addressInput="ngModel">
+          <mat-icon matSuffix>home</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Интересовања</mat-label>
+          <input type="text" matInput placeholder ngModel name="interest" [(ngModel)]=interest #addressInput="ngModel">
+          <mat-icon matSuffix>favorite_border</mat-icon>
+        </mat-form-field>
+
+        <div fxLayoutGap="20px" fxLayout="row" fxLayoutAlign="center center">
+          <button mat-raised-button color="primary" (click)="isEditing=false; formValues.resetForm()">
+            ОТКАЖИ ИЗМЕНЕ
+          </button>
+          <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">
+            САЧУВАЈ ИЗМЕНЕ
+          </button>
+        </div>
+      </form>
+    </section>
+  </mat-card>
+</section>
